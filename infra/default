@@ -1,0 +1,45 @@
+server {
+
+    listen 80;
+    server_name 172.19.64.97;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location / {
+        root   /var/www/yandex-tasks;
+        index  index.html index.html;
+        try_files $uri /index.html;
+    }
+
+}
+
+server {
+
+    listen 8080;
+    server_name 172.19.64.97;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+    
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location /media/ {
+        alias /var/www/infra_sprint1/media/;
+    }
+
+    location / {
+        root   /var/www/infra_sprint1;
+        index  index.html index.html;
+        try_files $uri /index.html;
+    }
+
+}
